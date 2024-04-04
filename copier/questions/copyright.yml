@@ -1,0 +1,47 @@
+---
+copyright_license:
+  type: str
+  help: "Copyright license name:"
+  default: BSD-3-Clause
+  choices:
+    Apache License 2.0:
+      value: Apache-2.0
+    BSD 3-Clause "New" or "Revised" License:
+      value: BSD-3-Clause
+    GNU General Public License v3.0 or later:
+      value: GPL-3.0-or-later
+    GNU Lesser General Public License v3.0 or later:
+      value: LGPL-3.0-or-later
+    MIT License:
+      value: MIT
+    Mozilla Public License 2.0:
+      value: MPL-2.0
+    The Unlicense:
+      value: Unlicense
+
+copyright_holder_name:
+  type: str
+  help: "Name of copyright holder:"
+  default: "{{ git_user_name }}"
+  validator: >-
+    {% if not copyright_holder_name %}
+    Holder name cannot be empty.
+    {% endif %}
+
+copyright_holder_email:
+  type: str
+  help: "Email address of copyright holder:"
+  default: "{{ git_user_email }}"
+  validator: >-
+    {% if not copyright_holder_email %}
+    Holder email address cannot be empty.
+    {% endif %}
+
+copyright_year:
+  type: int
+  help: "Public year of the copyright:"
+  default: "{{ current_year }}"
+  validator: >-
+    {% if not copyright_year %}
+    Year of the license cannot be empty.
+    {% endif %}

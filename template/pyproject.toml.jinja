@@ -1,0 +1,51 @@
+[project]
+name = "{{ project_name }}"
+version = "{{ project_version }}"
+description = "{{ project_description }}"
+requires-python = "{{ python_version }}"
+authors = [
+    { name = "{{ copyright_holder_name }}", email = "{{ copyright_holder_email }}" }
+]
+readme = "README.md"
+license = { text = "{{ copyright_license }}" }
+keywords = ["{{ project_keywords.split(',') | join('", "') }}"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    {% if with_cli %}
+    "click (>=8.1.8,<9.0.0)",
+    {% endif %}
+]
+
+[project.urls]
+homepage = "https://github.com/{{ vcs_github_path }}"
+repository = "https://github.com/{{ vcs_github_path }}.git"
+changelog = "https://github.com/{{ vcs_github_path }}/blob/main/CHANGELOG.md"
+
+{% if with_cli %}
+[project.scripts]
+{{ project_name }} = "{{ project_package }}.__main__:main"
+{% endif %}
+
+[dependency-groups]
+dev = [
+    "chance (>=0.110,<0.111)",
+    "pre-commit (>=4.1.0,<5.0.0)",
+    "pylint (>=3.3.4,<4.0.0)",
+    "pytest (>=8.3.4,<9.0.0)",
+    "pytest-cov (>=6.0.0,<7.0.0)",
+    "tox (>=4.23.2,<5.0.0)",
+]
+
+[tool.pdm]
+distribution = true
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

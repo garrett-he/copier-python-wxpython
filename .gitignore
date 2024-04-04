@@ -1,0 +1,8 @@
+__pycache__/
+
+/.venv/
+.pdm-python
+
+.python-version
+
+/.pytest_cache/
