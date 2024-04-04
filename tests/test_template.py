@@ -142,7 +142,7 @@ def test_template_with_cli(copie: Copie):
         assert ('click (>=8.1.8,<9.0.0)' in pyproject['project']['dependencies']) == with_cli
 
         if with_cli:
-            cli = (result.project_dir / 'src' / answers['project_package'] / '__main__.py').read_text(encoding='utf-8')
+            cli = (result.project_dir / 'src' / answers['project_package'] / '__cli__.py').read_text(encoding='utf-8')
 
             assert answers['project_package'] in cli
             assert answers['project_description'] in cli
