@@ -21,6 +21,7 @@ dependencies = [
     {% if with_cli %}
     "click (>=8.1.8,<9.0.0)",
     {% endif %}
+    "wxpython (>=4.2.2,<5.0.0)",
 ]
 
 [project.urls]
@@ -28,9 +29,10 @@ homepage = "https://github.com/{{ vcs_github_path }}"
 repository = "https://github.com/{{ vcs_github_path }}.git"
 changelog = "https://github.com/{{ vcs_github_path }}/blob/main/CHANGELOG.md"
 
-{% if with_cli %}
 [project.scripts]
 {{ project_name }} = "{{ project_package }}.__main__:main"
+{% if with_cli %}
+{{ project_name }} = "{{ project_package }}.__cli__:main"
 {% endif %}
 
 [dependency-groups]
