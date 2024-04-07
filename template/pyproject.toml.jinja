@@ -21,6 +21,7 @@ dependencies = [
     {% if with_cli %}
     "click>=8.1.8",
     {% endif %}
+    "wxpython>=4.2.2",
 ]
 
 [project.urls]
@@ -44,9 +45,10 @@ dev = [
     "pytest-cov>=6.0.0",
     "tox>=4.24.1",
 ]
-{% if with_cli %}
 [project.scripts]
-{{ project_name }} = "{{ project_package }}.__cli__:main"
+{{ project_name }} = "{{ project_package }}.__gui__:main"
+{% if with_cli %}
+{{ project_name }}-cli = "{{ project_package }}.__cli__:main"
 {% endif %}
 
 [build-system]

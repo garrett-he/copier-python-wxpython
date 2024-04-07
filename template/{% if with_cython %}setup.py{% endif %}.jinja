@@ -5,6 +5,7 @@ setup(
     name='{{ project_name }}',
     ext_modules=cythonize([
         './src/{{ project_package }}/__init__.py',
+        './src/{{ project_package }}/__gui__.py',
         {% if with_cli %}
         './src/{{ project_package }}/__cli__.py',
         {% endif %}

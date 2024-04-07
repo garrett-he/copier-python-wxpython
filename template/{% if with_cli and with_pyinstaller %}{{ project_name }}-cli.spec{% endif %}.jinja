@@ -3,7 +3,7 @@
 block_cipher = None
 
 a = Analysis(
-    ['src/{{ project_package }}/__gui__.py'],
+    ['src/{{ project_package }}/__cli__.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -26,7 +26,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='{{ project_name }}',
+    name='{{ project_name }}-cli',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

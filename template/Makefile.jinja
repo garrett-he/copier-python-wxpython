@@ -38,6 +38,12 @@ bundle: ## Bundle project with pyinstaller
 	pdm run pyinstaller {{ project_name }}.spec
 {% endif %}
 
+{% if with_cli and with_pyinstaller %}
+.PHONY: bundle-cli
+bundle-cli: ## Bundle command-line program with pyinstaller
+	pdm run pyinstaller {{ project_name }}-cli.spec
+{% endif %}
+
 .PHONY: publish
 publish: build ## Publish project
 	pdm publish --build
