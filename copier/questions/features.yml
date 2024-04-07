@@ -1,0 +1,22 @@
+---
+with_cli:
+  type: bool
+  help: "With command-line interface?"
+  default: False
+
+with_nested_commands:
+  type: bool
+  help: "With nested commands?"
+  default: False
+  when: "{{ with_cli }}"
+
+with_pyinstaller:
+  type: bool
+  help: "Enable pyinstaller bundler?"
+  default: False
+  when: "{{ with_cli }}"
+
+with_cython:
+  type: bool
+  help: "Enable cython compiler?"
+  default: False

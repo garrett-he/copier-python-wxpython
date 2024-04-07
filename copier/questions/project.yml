@@ -1,0 +1,40 @@
+---
+project_name:
+  type: str
+  help: "Name of this project:"
+  placeholder: project-name
+  validator: >-
+    {% if not project_name %}
+    Project name cannot be empty.
+    {% endif %}
+
+project_package:
+  type: str
+  help: "Package name of this project:"
+  default: "{{ project_name.replace('-', '_') }}"
+  validator: >-
+    {% if not (project_package | regex_search('^[a-zA-Z_][a-zA-Z0-9\_]*$')) %}
+    Project package must start with a letter or underlines, followed one or more letters, digits or underlines.
+    {% endif %}
+
+project_description:
+  type: str
+  help: "Description of this project:"
+  placeholder: "New project generated via copier."
+  validator: >-
+    {% if not project_description %}
+    Project description cannot be empty.
+    {% endif %}
+
+project_version:
+  type: str
+  default: "0.1.0"
+  help: "Version of this project:"
+  validator: >-
+    {% if not (project_version | regex_search('^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$')) %}
+    Project version should use Semantic Versioning 2.0.0 (MAJOR.MINOR.PATCH)
+    {% endif %}
+
+project_keywords:
+  type: str
+  help: "Keywords of this project:"

@@ -1,0 +1,54 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help: ## Show help information
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: init
+init: ## Initialize project
+	pdm install
+	pdm run pre-commit install
+
+.PHONY: lint
+lint: ## Code analyse and lint
+	pdm run pylint src/ tests/
+
+.PHONY: test
+test: ## Run tests
+	pdm run pytest --cov=src --cov-report=term-missing
+
+.PHONY: tox
+tox: ## Run tox
+	pdm run tox
+
+.PHONY: build
+build: ## Build project
+	pdm build
+
+{% if with_cython %}
+.PHONY: compile
+compile: ## Compile Python files
+	pdm run python setup.py build_ext --build-lib build
+	cp ./src/{{ project_package }}/__cli__.py ./build/{{ project_package }}/
+{% endif %}
+
+{% if with_pyinstaller %}
+.PHONY: bundle
+bundle: ## Bundle project with pyinstaller
+	pdm run pyinstaller {{ project_name }}.spec
+{% endif %}
+
+.PHONY: publish
+publish: build ## Publish project
+	pdm publish --build
+
+.PHONY: codecov
+codecov: ## Upload coverage.xml to codecov.com
+	pdm run pytest --cov=src --cov-report=xml
+	codecov
+
+.PHONY: clean
+clean: ## Clean up cache files
+	find . -name '__pycache__' -type d | xargs rm -rf
+	rm -rf .pytest_cache/ .tox/ .venv/ build/ dist/
+	rm -f .coverage coverage.xml .python_version .pdm-version

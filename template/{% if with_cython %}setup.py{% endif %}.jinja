@@ -1,0 +1,13 @@
+from distutils.core import setup
+from Cython.Build import cythonize
+
+setup(
+    name='{{ project_name }}',
+    ext_modules=cythonize([
+        './src/{{ project_package }}/__init__.py',
+        {% if with_cli %}
+        './src/{{ project_package }}/__cli__.py',
+        {% endif %}
+    ], language_level='3str'),
+    requires=['Cython']
+)
