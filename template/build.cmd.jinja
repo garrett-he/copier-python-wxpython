@@ -1,0 +1,5 @@
+pdm run python setup.py build_ext --build-lib build
+
+copy .\src\{{ project_package }}\__main__.py .\build\{{ project_package }}\__main__.py
+
+pdm run pyinstaller {{ project_name }}.spec
