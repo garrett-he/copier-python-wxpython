@@ -1,0 +1,29 @@
+import json
+from pathlib import Path
+from typing import TypedDict
+
+from {{ project_package }}.state import global_state
+
+
+class Config(TypedDict):
+    ...
+
+
+default_config: Config = {}
+
+
+def read_config() -> Config:
+    config_file: Path = global_state.get('config_file')
+
+    if not config_file.exists():
+        return default_config
+
+    return json.loads(config_file.read_text(encoding='utf-8'))
+
+
+def write_config(config: Config):
+    config_file: Path = global_state.get('config_file')
+    config_file.parent.mkdir(0o755, parents=True, exist_ok=True)
+
+    with config_file.open('w', encoding='utf-8') as fp:
+        fp.write(json.dumps(config, ensure_ascii=False, indent=4))

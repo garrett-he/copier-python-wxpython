@@ -30,3 +30,5 @@ class State:
 global_state = State()
 
 global_state.set('app_dir', Path(sys.executable).parent if getattr(sys, 'frozen', False) else Path.cwd())
+
+global_state.set('config_file', Path.home().joinpath('.{{ project_name }}', 'config.json'))
