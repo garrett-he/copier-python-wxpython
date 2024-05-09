@@ -1,7 +1,9 @@
 import wx
 
 from {{ project_package }} import __title__
+from {{ project_package }}.resources import app_icon
 
 class MainFrame(wx.Frame):
     def __init__(self, parent):
         super().__init__(parent, title=__title__, style=wx.CAPTION | wx.MINIMIZE_BOX | wx.CLOSE_BOX, size=(300, 200))
+        self.SetIcon(app_icon.GetIcon())
