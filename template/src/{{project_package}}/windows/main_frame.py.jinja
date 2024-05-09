@@ -1,0 +1,7 @@
+import wx
+
+from {{ project_package }} import __title__
+
+class MainFrame(wx.Frame):
+    def __init__(self, parent):
+        super().__init__(parent, title=__title__, style=wx.CAPTION | wx.MINIMIZE_BOX | wx.CLOSE_BOX, size=(300, 200))

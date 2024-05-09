@@ -7,7 +7,7 @@ setup(
     ext_modules=cythonize([
         './src/{{ project_package }}/__init__.py',
         './src/{{ project_package }}/app.py',
-        './src/{{ project_package }}/frames/*.py',
+        './src/{{ project_package }}/windows/*.py',
         {% if with_cli %}
         './src/{{ project_package }}/__cli__.py',
         {% endif %}
