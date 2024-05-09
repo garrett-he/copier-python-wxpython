@@ -1,0 +1,32 @@
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+from typing import Any
+
+
+class State:
+    _instance: State = None
+
+    _state: dict
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._state = {}
+
+        return cls._instance
+
+    def get(self, key: str, default: Any = None) -> Any | None:
+        if key in self._state:
+            return self._state[key]
+
+        return default
+
+    def set(self, key: str, value: Any):
+        self._state[key] = value
+
+
+global_state = State()
+
+global_state.set('app_dir', Path(sys.executable).parent if getattr(sys, 'frozen', False) else Path.cwd())
