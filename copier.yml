@@ -1,0 +1,17 @@
+---
+  !include copier/settings.yml
+
+---
+  !include copier/questions/project.yml
+
+---
+  !include copier/questions/copyright.yml
+
+---
+  !include copier/questions/vcs.yml
+
+---
+  !include copier/questions/python.yml
+
+---
+  !include copier/questions/features.yml

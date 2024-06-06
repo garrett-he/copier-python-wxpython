@@ -1,0 +1,15 @@
+---
+_min_copier_version: "9"
+
+_jinja_extensions:
+  - copier_templates_extensions.TemplateExtensionLoader
+  - copier/jinja_extensions.py:DateExtension
+  - copier/jinja_extensions.py:GitExtension
+  - copier/jinja_extensions.py:SlugifyExtension
+  - copier/jinja_extensions.py:VersionExtension
+
+_subdirectory: "template"
+
+_tasks:
+  - "git init"
+  - "git remote add origin git@github.com:{{ vcs_github_path }}.git"

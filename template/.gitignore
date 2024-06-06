@@ -1,0 +1,16 @@
+__pycache__/
+
+/.pytest_cache/
+/.venv/
+
+/.pdm-python
+/.python-version
+
+/.coverage
+/coverage.xml
+{% if with_tox %}
+/.tox/
+{% endif %}
+
+/build/
+/dist/

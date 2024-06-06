@@ -1,0 +1,31 @@
+# {{ project_name }}
+
+{{ project_description }}
+
+## License
+{% if copyright_license == 'Unlicense' %}
+This is free and unencumbered software released into the public domain,
+see [UNLICENSE](./UNLICENSE).
+{% else %}
+Copyright (C) {{ copyright_year }} {{ copyright_holder_name }} <{{ copyright_holder_email }}>
+
+{%- if copyright_license == 'Apache-2.0' %}
+
+Apache License, Version 2.0, see [LICENSE](./LICENSE).
+{%- elif copyright_license == 'BSD-3-Clause' %}
+
+The BSD 3-Clause License, see [LICENSE](./LICENSE).
+{%- elif copyright_license == 'GPL-3.0-or-later' %}
+
+The GNU General Public License (GPL) version 3, see [COPYING](./COPYING).
+{%- elif copyright_license == 'LGPL-3.0-or-later' %}
+
+The GNU Lesser General Public License (GPL) version 3, see [COPYING](./COPYING).
+{%- elif copyright_license == 'MIT' %}
+
+MIT License, see [LICENSE](./LICENSE).
+{%- elif copyright_license == 'MPL-2.0' %}
+
+Mozilla Public License 2.0, see [LICENSE](./LICENSE).
+{%- endif %}
+{% endif %}

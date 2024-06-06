@@ -1,0 +1,45 @@
+[project]
+name = "{{ project_name }}"
+version = "{{ project_version }}"
+description = "{{ project_description }}"
+requires-python = "{{ python_version }}"
+authors = [
+    { name = "{{ copyright_holder_name }}", email = "{{ copyright_holder_email }}" }
+]
+readme = "README.md"
+license = { text = "{{ copyright_license }}" }
+keywords = ["{{ project_keywords.split(',') | join('", "') }}"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",{% for i in python_version | version_list(['3.10', '3.11', '3.12', '3.13', '3.14']) %}
+    "Programming Language :: Python :: {{ i }}",{% endfor %}
+]
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/{{ vcs_github_path }}"
+repository = "https://github.com/{{ vcs_github_path }}.git"
+changelog = "https://github.com/{{ vcs_github_path }}/blob/main/CHANGELOG.md"
+
+[dependency-groups]
+dev = [
+    "chance>=0.110",
+    "pre-commit>=4.2.0",
+    "pylint>=3.3.6",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    {% if with_tox %}
+    "tox>=4.25.0",
+    {% endif %}
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+lint = "pylint src/ tests/"
+test = "pytest --cov=src --cov-report=term-missing"

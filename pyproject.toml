@@ -1,0 +1,48 @@
+[project]
+name = "copier-python-wxpython"
+version = "0.1.0"
+description = "A Copier template for Python projects with wxPython framework."
+requires-python = ">=3.10"
+authors = [
+    { name = "Garrett HE", email = "garrett.he@outlook.com" }
+]
+readme = "README.md"
+license = { text = "BSD-3-Clause" }
+keywords = ["copier", "template", "code-generation", "python", "wxpython"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Code Generators",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/garrett-he/copier-python-wxpython"
+repository = "https://github.com/garrett-he/copier-python-wxpython.git"
+changelog = "https://github.com/garrett-he/copier-python-wxpython/blob/main/CHANGELOG.md"
+
+[dependency-groups]
+dev = [
+    "chance>=0.110",
+    "copier-templates-extensions>=0.3.1",
+    "pre-commit>=4.2.0",
+    "pylint>=3.3.6",
+    "pytest>=8.3.5",
+    "pytest-copie>=0.2.2",
+    "toml>=0.10.2",
+]
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+lint = "pylint --recursive=yes copier/ tests/"
+test = "pytest"
+
+[tool.pytest.ini_options]
+addopts = "--ignore='template' -p no:warnings"

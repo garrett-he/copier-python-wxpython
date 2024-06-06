@@ -1,0 +1,5 @@
+---
+vcs_github_path:
+  type: str
+  help: "Path of repository on github:"
+  default: "{{ copyright_holder_name.lower() | slugify }}/{{ project_name }}"

@@ -1,0 +1,5 @@
+---
+python_version:
+  type: str
+  help: "Python version to use:"
+  default: ">=3.10"
