@@ -14,12 +14,17 @@ classifiers = [
     "Programming Language :: Python :: 3",{% for i in python_version | version_list(['3.10', '3.11', '3.12', '3.13', '3.14']) %}
     "Programming Language :: Python :: {{ i }}",{% endfor %}
 ]
-dependencies = []
+dependencies = [
+    "wxpython>=4.2.2",
+]
 
 [project.urls]
 homepage = "https://github.com/{{ vcs_github_path }}"
 repository = "https://github.com/{{ vcs_github_path }}.git"
 changelog = "https://github.com/{{ vcs_github_path }}/blob/main/CHANGELOG.md"
+
+[project.scripts]
+{{ project_name }} = "{{ project_package }}.__main__:main"
 
 [dependency-groups]
 dev = [
