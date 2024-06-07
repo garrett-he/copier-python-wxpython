@@ -29,6 +29,7 @@ changelog = "https://github.com/{{ vcs_github_path }}/blob/main/CHANGELOG.md"
 [dependency-groups]
 dev = [
     "chance>=0.110",
+    "nuitka>=2.6.7",
     "pre-commit>=4.2.0",
     "pylint>=3.3.6",
     "pytest>=8.3.5",
@@ -46,5 +47,6 @@ build-backend = "pdm.backend"
 distribution = true
 
 [tool.pdm.scripts]
+build-win32 = "nuitka --standalone --onefile --include-module=wx._xml --windows-console-mode=disable --windows-icon-from-ico=images/app_icon.ico --output-filename={{ project_name }}.exe --output-dir=dist src/{{ project_package }}/__main__.py"
 lint = "pylint src/ tests/"
 test = "pytest --cov=src --cov-report=term-missing"
