@@ -1,6 +1,6 @@
 import wx
 
-from .forms import MainForm
+from .forms.main_form import MainForm
 
 
 class App(wx.App):
