@@ -2,7 +2,7 @@
 project_name:
   type: str
   help: "Name of this project:"
-  placeholder: project-name
+  default: "{{ dest_folder_name }}"
   validator: >-
     {% if not project_name %}
     Project name cannot be empty.

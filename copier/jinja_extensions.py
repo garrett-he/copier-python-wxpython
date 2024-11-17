@@ -1,5 +1,6 @@
 import re
 import subprocess
+import sys
 import unicodedata
 from datetime import date
 
@@ -37,3 +38,10 @@ class SlugifyExtension(Extension):
         super().__init__(environment)
 
         environment.filters['slugify'] = slugify_filter
+
+# pylint: disable=abstract-method
+class ProjectExtension(Extension):
+    def __init__(self, environment: Environment):
+        super().__init__(environment)
+
+        environment.globals['dest_folder_name'] = sys.argv[4]
