@@ -1,6 +1,6 @@
 import wx
 
-from .forms import MainForm
+from .gui.forms import MainForm
 
 
 def main():
