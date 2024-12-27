@@ -1,5 +1,9 @@
-import wx
+from .templates import MainFormTemplate
+from ..res.images import app_icon
 
-class MainForm(wx.Frame):
+
+class MainForm(MainFormTemplate):
     def __init__(self, parent):
-        super().__init__(parent, style=wx.CAPTION | wx.MINIMIZE_BOX | wx.CLOSE_BOX, size=(300, 200))
+        super().__init__(parent)
+
+        self.SetIcon(app_icon.GetIcon())
