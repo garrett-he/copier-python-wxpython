@@ -1,4 +1,5 @@
 import re
+from packaging.specifiers import SpecifierSet
 import subprocess
 import sys
 import unicodedata
@@ -39,9 +40,22 @@ class SlugifyExtension(Extension):
 
         environment.filters['slugify'] = slugify_filter
 
+
 # pylint: disable=abstract-method
 class ProjectExtension(Extension):
     def __init__(self, environment: Environment):
         super().__init__(environment)
 
         environment.globals['dest_folder_name'] = sys.argv[4]
+
+
+def version_list(value: str, versions: list[str]) -> list[str]:
+    return list(SpecifierSet(value).filter(versions))
+
+
+# pylint: disable=abstract-method
+class VersionExtension(Extension):
+    def __init__(self, environment: Environment):
+        super().__init__(environment)
+
+        environment.filters['version_list'] = version_list

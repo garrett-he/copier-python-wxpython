@@ -42,3 +42,7 @@ addopts = "--ignore='template' -p no:warnings"
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.scripts]
+lint = "pylint --recursive=yes copier/ tests/"
+test = "pytest"

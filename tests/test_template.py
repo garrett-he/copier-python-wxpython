@@ -28,7 +28,6 @@ def generate_copier_answers():
         'copyright_year': str(random.randint(2000, 2024)),
         'vcs_github_path': f'{chance.word()}/{chance.word()}-{chance.word()}'.lower(),
         'python_version': chance.pickone(['>=3.10', '>=3.11', '>=3.12']),
-        'with_cli': False,
     }
 
 
@@ -44,6 +43,9 @@ def get_license_file(license_id: str) -> str:
 
 def test_template_static_files(copie: Copie):
     result = copie.copy(extra_answers=generate_copier_answers())
+
+    if result.exit_code != 0:
+        print(result.exception)
 
     assert result.exit_code == 0
     assert result.exception is None
@@ -124,33 +126,3 @@ def test_template_package(copie: Copie):
     init_file = result.project_dir / 'src' / answers['project_package'] / '__init__.py'
     assert init_file.exists()
     assert answers['project_package'] in init_file.read_text(encoding='utf-8')
-
-
-def test_template_with_cli(copie: Copie):
-    def with_cli_test(with_cli: bool):
-        answers = generate_copier_answers()
-        answers['with_cli'] = with_cli
-        result = copie.copy(extra_answers=answers)
-
-        assert result.exit_code == 0
-        assert result.exception is None
-        assert result.project_dir.is_dir()
-
-        with open(result.project_dir.joinpath('pyproject.toml'), 'r', encoding='utf-8') as fp:
-            pyproject = toml.loads(fp.read())
-
-        assert ('click (>=8.1.8,<9.0.0)' in pyproject['project']['dependencies']) == with_cli
-
-        if with_cli:
-            cli = (result.project_dir / 'src' / answers['project_package'] / '__cli__.py').read_text(encoding='utf-8')
-
-            assert answers['project_package'] in cli
-            assert answers['project_description'] in cli
-
-            assert (result.project_dir / 'tests' / 'test_cli.py').exists()
-
-        assert ('click' in (result.project_dir / 'tests' / 'conftest.py').read_text(encoding='utf-8')) == with_cli
-        assert not (result.project_dir / 'tests' / 'test_example.py').exists() == with_cli
-
-    with_cli_test(True)
-    with_cli_test(False)

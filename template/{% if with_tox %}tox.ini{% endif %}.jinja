@@ -1,0 +1,10 @@
+[tox]
+isolated_build = True
+envlist = {% for i in python_version | version_list(['3.10', '3.11', '3.12', '3.13', '3.14']) %}
+    py{{ i | replace('.', '') }}{% endfor %}
+
+[testenv]
+allowlist_externals = pdm
+commands =
+    pdm install -v
+    pdm run test

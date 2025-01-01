@@ -30,4 +30,4 @@ jobs:
 
       - run: pdm install
 
-      - run: pdm run pytest
+      - run: pdm run test

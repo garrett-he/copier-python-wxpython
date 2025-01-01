@@ -11,16 +11,10 @@ license = { text = "{{ copyright_license }}" }
 keywords = ["{{ project_keywords.split(',') | join('", "') }}"]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3",{% for i in python_version | version_list(['3.10', '3.11', '3.12', '3.13', '3.14']) %}
+    "Programming Language :: Python :: {{ i }}",{% endfor %}
 ]
 dependencies = [
-    {% if with_cli %}
-    "click (>=8.1.8,<9.0.0)",
-    {% endif %}
     "wxpython (>=4.2.2,<5.0.0)",
 ]
 
@@ -31,27 +25,28 @@ changelog = "https://github.com/{{ vcs_github_path }}/blob/main/CHANGELOG.md"
 
 [project.scripts]
 {{ project_name }} = "{{ project_package }}.__main__:main"
-{% if with_cli %}
-{{ project_name }}-cli = "{{ project_package }}.__cli__:main"
-{% endif %}
 
 [dependency-groups]
 dev = [
-    "chance (>=0.110,<0.111)",
-    "nuitka (>=2.6.7, <3.0.0)",
-    "pre-commit (>=4.1.0,<5.0.0)",
-    "pylint (>=3.3.4,<4.0.0)",
-    "pytest (>=8.3.4,<9.0.0)",
-    "pytest-cov (>=6.0.0,<7.0.0)",
+    "chance>=0.110",
+    "nuitka>=2.6.7",
+    "pre-commit>=4.1.0",
+    "pylint>=3.3.4",
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    {% if with_tox %}
     "tox (>=4.23.2,<5.0.0)",
+    {% endif %}
 ]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
 
 [tool.pdm.scripts]
-build-win32 = "nuitka --standalone --onefile --include-module=wx._xml --windows-console-mode=disable --windows-icon-from-ico=images/app_icon.ico --output-filename=audiofoundry-register.exe --output-dir=dist src/audiofoundry_register/__main__.py"
-
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+dev = "python -m {{ project_package }}"
+lint = "pylint src/ tests/"
+test = "pytest --cov=src --cov-report=term-missing"

@@ -1,11 +1,5 @@
 ---
-with_cli:
+with_tox:
   type: bool
-  help: "With command-line interface?"
-  default: False
-
-with_nested_commands:
-  type: bool
-  help: "With nested commands?"
-  default: False
-  when: "{{ with_cli }}"
+  help: "With tox?"
+  default: True
